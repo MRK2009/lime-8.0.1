@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
 
   linux-ndll:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         haxe-version: [3.4.7, 4.0.5, 4.1.5, 4.2.5]
@@ -29,7 +29,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -76,7 +78,7 @@ jobs:
           if-no-files-found: error
 
   macos-ndll:
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: actions/checkout@v3
@@ -101,7 +103,9 @@ jobs:
           rm /usr/local/bin/python3*
           brew bundle
           popd
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -153,7 +157,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -204,7 +210,7 @@ jobs:
 
   android-ndll:
     needs: macos-ndll
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: actions/checkout@v3
@@ -231,7 +237,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -272,7 +280,7 @@ jobs:
 
   ios-ndll:
     needs: macos-ndll
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: actions/checkout@v3
@@ -289,7 +297,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -322,7 +332,7 @@ jobs:
 
   package-haxelib:
     needs: [linux-ndll, macos-ndll, windows-ndll, android-ndll, ios-ndll]
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: actions/checkout@v3
@@ -339,7 +349,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
 
@@ -420,7 +432,7 @@ jobs:
           if-no-files-found: error
 
   docs:
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: actions/checkout@v3
@@ -453,7 +465,7 @@ jobs:
 
   android-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - name: Install Android NDK
@@ -476,7 +488,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -517,7 +531,7 @@ jobs:
 
   flash-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: krdlab/setup-haxe@v1
@@ -558,8 +572,7 @@ jobs:
     needs: package-haxelib
     strategy:
       matrix:
-        os: [ubuntu-20.04
-        , macos-11, windows-latest]
+        os: [ubuntu-22.04, macos-14, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -585,7 +598,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -624,7 +639,7 @@ jobs:
 
   html5-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: krdlab/setup-haxe@v1
@@ -663,7 +678,7 @@ jobs:
 
   ios-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: krdlab/setup-haxe@v1
@@ -676,7 +691,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -709,7 +726,7 @@ jobs:
 
   linux-samples:
     needs: package-haxelib
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
 
       - name: Install system dependencies
@@ -727,7 +744,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -760,7 +779,7 @@ jobs:
 
   macos-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
 
       - uses: krdlab/setup-haxe@v1
@@ -773,7 +792,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -808,7 +829,7 @@ jobs:
     needs: package-haxelib
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-latest]
+        os: [ubuntu-22.04, macos-14, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -834,7 +855,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -886,7 +909,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp --quiet
+          curl --output ../hxcpp-4.3.45.zip --location https://github.com/HaxeFoundation/hxcpp/releases/download/v4.3.45/hxcpp-4.3.45.zip
+          haxelib --global update haxelib --quiet
+          haxelib install ../hxcpp-4.3.45.zip --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
@@ -918,7 +943,7 @@ jobs:
           lime build SimpleAudio windows -release -verbose -nocolor
 
   notify:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [package-haxelib, docs, android-samples, flash-samples, hashlink-samples, html5-samples, ios-samples, linux-samples, macos-samples, neko-samples, windows-samples]
     if: ${{ github.repository == 'openfl/lime' && github.event_name != 'pull_request' }}
     steps:
