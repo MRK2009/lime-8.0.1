@@ -70,7 +70,7 @@ jobs:
           if-no-files-found: error
 
   macos-ndll:
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - uses: actions/checkout@v3
@@ -198,7 +198,7 @@ jobs:
 
   android-ndll:
     needs: macos-ndll
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - uses: actions/checkout@v3
@@ -267,7 +267,7 @@ jobs:
 
   ios-ndll:
     needs: macos-ndll
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - uses: actions/checkout@v3
@@ -446,7 +446,7 @@ jobs:
 
   android-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - name: Install Android NDK
@@ -689,7 +689,7 @@ jobs:
 
   ios-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - uses: krdlab/setup-haxe@v1
@@ -786,7 +786,7 @@ jobs:
 
   macos-samples:
     needs: package-haxelib
-    runs-on: macos-11
+    runs-on: 14
     steps:
 
       - uses: krdlab/setup-haxe@v1
